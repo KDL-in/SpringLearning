@@ -1,0 +1,5 @@
+*.class
+# Editor directories and files
+.idea
+.vscode
+out/**/*
