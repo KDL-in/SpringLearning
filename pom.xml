@@ -15,6 +15,8 @@
         <module>springMVC-03-helloworld02</module>
         <module>springMVC-03-helloworld-anotation</module>
         <module>springMVC-06-Rest</module>
+        <module>springMVC-07-viewResolver</module>
+        <module>springMVC-07-CRUD</module>
     </modules>
 
 

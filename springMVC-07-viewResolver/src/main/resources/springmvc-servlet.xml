@@ -11,9 +11,9 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理 -->
-    <context:component-scan base-package="com.springmvc.rest"/>
+    <context:component-scan base-package="com.springmvc.viewresolver"/>
     <!-- 让Spring MVC不处理静态资源 -->
-    <mvc:default-servlet-handler/>
+    <mvc:default-servlet-handler />
     <!--
     支持mvc注解驱动
         在spring中一般采用@RequestMapping注解来完成映射关系
@@ -23,15 +23,22 @@
         这两个实例分别在类级别和方法级别处理。
         而annotation-driven配置帮助我们自动完成上述两个实例的注入。
      -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven />
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           id="internalResourceViewResolver">
-        <!-- 前缀 -->
-        <property name="prefix" value="/WEB-INF/jsp/" />
-        <!-- 后缀 -->
-        <property name="suffix" value=".jsp" />
+        <!--  指定解析返回的view-->
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
-
+    <bean class="com.springmvc.viewresolver.MyViewResolver">
+        <property name="order" value="100"/>
+    </bean>
+            
+    <!-- 指定让springMVC管理国际化文件，id必须是messageSource -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="i18n"></property>
+    </bean>
 </beans>
