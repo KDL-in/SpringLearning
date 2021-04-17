@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.springmvc.servlet.HelloServlet</servlet-class>
+        <servlet-class>com.springmvc.interceptor.servlet.HelloServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>

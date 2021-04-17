@@ -1,4 +1,4 @@
-package com.springmvc.bean;
+package com.springmvc.interceptor.bean;
 
 public class Employee {
 

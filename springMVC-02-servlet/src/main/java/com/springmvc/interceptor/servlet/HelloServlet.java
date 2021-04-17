@@ -1,4 +1,4 @@
-package com.springmvc.servlet;
+package com.springmvc.interceptor.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

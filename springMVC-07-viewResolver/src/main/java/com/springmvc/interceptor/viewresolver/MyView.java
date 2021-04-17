@@ -1,4 +1,4 @@
-package com.springmvc.viewresolver;
+package com.springmvc.interceptor.viewresolver;
 
 import org.springframework.web.servlet.View;
 

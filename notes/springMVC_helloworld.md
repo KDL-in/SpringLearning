@@ -44,7 +44,7 @@ public class HelloServlet extends HttpServlet {
 
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.springmvc.servlet.HelloServlet</servlet-class>
+        <servlet-class>HelloServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>

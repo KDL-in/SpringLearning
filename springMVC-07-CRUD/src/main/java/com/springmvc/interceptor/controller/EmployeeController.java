@@ -1,7 +1,11 @@
-package com.springmvc.controller;
+package com.springmvc.interceptor.controller;
 
 import java.util.Collection;
 
+import com.springmvc.interceptor.bean.Department;
+import com.springmvc.interceptor.bean.Employee;
+import com.springmvc.interceptor.dao.DepartmentDao;
+import com.springmvc.interceptor.dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.springmvc.bean.Department;
-import com.springmvc.bean.Employee;
-import com.springmvc.dao.DepartmentDao;
-import com.springmvc.dao.EmployeeDao;
 
 @Controller
 public class EmployeeController {
@@ -41,6 +40,7 @@ public class EmployeeController {
 	@RequestMapping(value="/emp/{id}",method=RequestMethod.DELETE)
 	public String deleteEmp(@PathVariable("id")Integer id){
 		employeeDao.delete(id);
+
 		return "redirect:/emps";
 	}
 

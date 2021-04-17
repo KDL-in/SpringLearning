@@ -1,12 +1,11 @@
-package com.springmvc.dao;
+package com.springmvc.interceptor.dao;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.springmvc.interceptor.bean.Department;
 import org.springframework.stereotype.Repository;
-
-import com.springmvc.bean.Department;
 
 /**
  * 操作部门的dao

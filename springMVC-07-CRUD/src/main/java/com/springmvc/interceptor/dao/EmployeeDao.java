@@ -1,14 +1,13 @@
-package com.springmvc.dao;
+package com.springmvc.interceptor.dao;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.springmvc.interceptor.bean.Department;
+import com.springmvc.interceptor.bean.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.springmvc.bean.Department;
-import com.springmvc.bean.Employee;
 
 
 /**

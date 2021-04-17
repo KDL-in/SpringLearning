@@ -478,7 +478,7 @@ public final Object resolveArgument(MethodParameter parameter, @Nullable ModelAn
 		WebDataBinder binder = binderFactory.createBinder(webRequest, attribute, name);
 		if (binder.getTarget() != null) {
 			if (!mavContainer.isBindingDisabled(name)) {
-                // 绑定更新，从webRequest自动封装到model（初始化数据容器）中的对应对象中
+                // 绑定更新，web中的数据和参数中的对象绑定
 				bindRequestParameters(binder, webRequest);
 			}
 			validateIfApplicable(binder, parameter);
@@ -774,5 +774,73 @@ protected void renderMergedOutputModel(
 		rd.forward(request, response);
 	}
 }
+````
+
+# 数据绑定
+
+## 基本逻辑
+
+在方法调用之前调取获取所有参数，这里需要调用resolveArgument对参数进行解析。
+
+````java
+// 来看modelAttribute的参数解析的实现,其中实现了参数绑定
+public final Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
+		NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+	 //....
+    // 封装web请求中携带的新数据
+	if (bindingResult == null) {
+        // 创建了参数绑定器
+		WebDataBinder binder = binderFactory.createBinder(webRequest, attribute, name);
+		if (binder.getTarget() != null) {
+			if (!mavContainer.isBindingDisabled(name)) {
+                // 绑定更新，web中的数据和参数中的对象绑定
+				bindRequestParameters(binder, webRequest);
+			}
+			validateIfApplicable(binder, parameter);
+			if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, parameter)) {
+				throw new BindException(binder.getBindingResult());
+			}
+		}
+		if (!parameter.getParameterType().isInstance(attribute)) {
+			attribute = binder.convertIfNecessary(binder.getTarget(), parameter.getParameterType(), parameter);
+		}
+		bindingResult = binder.getBindingResult();
+	}
+	Map<String, Object> bindingResultModel = bindingResult.getModel();
+	mavContainer.removeAttributes(bindingResultModel);
+	mavContainer.addAllAttributes(bindingResultModel);
+	return attribute;
+}
+````
+
+我们来考虑一下，WebDataBinder它需要做什么事。
+
+- 参数类型转换，数据格式化（例如日期）
+- 合法性校验，前端的校验防君子不防小人
+- 数据绑定，遍历参数，一一设置
+- 结果处理，例如错误处理
+
+事实上，WebDataBinder正是包含这些组件。
+
+![image-20210416102017649](assets/img/image-20210416102017649.png)
+
+## 自定义转换器
+
+1. 实现Converter接口
+2. 将WebDataBinder中的ConversionService设置成我们这个加了自定义类型转换器的ConversionService
+
+````xml
+<!-- 1. 告诉SpringMVC别用默认的ConversionService，
+        而用我自定义的ConversionService、可能有我们自定义的Converter； -->
+<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <!--converters转换器中添加我们自定义的类型转换器  -->
+    <property name="converters">
+        <set>
+            <bean class="com.atguigu.component.MyStringToEmployeeConverter"></bean>
+        </set>
+    </property>
+</bean>
+<!-- 2. conversion-service="conversionService"：使用我们自己配置的类型转换组件 -->
+<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 ````
 

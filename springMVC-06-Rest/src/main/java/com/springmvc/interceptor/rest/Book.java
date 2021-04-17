@@ -1,4 +1,4 @@
-package com.springmvc.rest;
+package com.springmvc.interceptor.rest;
 
 import java.util.HashMap;
 import java.util.HashSet;

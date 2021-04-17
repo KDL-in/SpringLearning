@@ -33,7 +33,7 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <bean class="com.springmvc.viewresolver.MyViewResolver">
+    <bean class="com.springmvc.interceptor.viewresolver.MyViewResolver">
         <property name="order" value="100"/>
     </bean>
             
