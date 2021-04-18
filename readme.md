@@ -6,7 +6,7 @@
 
 ## 目录
 
-> -  [springMVC_helloworld.md](notes\springMVC_helloworld.md)，运行起来！
+> -  [springMVC_helloworld.md](notes/springMVC_helloworld.md)，运行起来！
 >   - 从servlet，xml，注解三种方式来编写helloword
 >   - 引入了springMVC前端控制器的概念
 > -  [springMVC_basic.md](notes\springMVC_basic.md)，基础知识
